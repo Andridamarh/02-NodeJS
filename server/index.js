@@ -30,12 +30,13 @@ app.use(async (req,res,next) =>{
     next();
 });
 
-app.use("/eshopay/", (req, res) => {
+app.use(process.env.URL_DOMAIN, (req, res) => {
   res.send("Hello Eshopay");
 });
 
 // call routes
-app.use("/category",routes.CategoryRoute)
+app.use(process.env.URL_API+"/category",routes.CategoryRoute)
+app.use(process.env.URL_API+"/products",routes.ProductsRoute)
 
 // set to false agar tidak di drop tables yang ada di database
 const dropDatabaseSync = false;
