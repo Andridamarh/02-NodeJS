@@ -1,3 +1,4 @@
+import { sendStatus } from "express/lib/response";
 import formidable from "formidable";
 import fs from "fs";
 import path from "path";
@@ -116,7 +117,7 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const createProductImage = async(req,resm,next)=>{
+const createProductImage = async(req,res,next)=>{
     try {
         const multipart = await UpDownloadHelper.uploadMultipleFile(req);
         const { attrb: { files, fields }, status: { status } } = multipart
@@ -147,10 +148,22 @@ const createProductImage = async(req,resm,next)=>{
     }
 }
 
+const findProdById = async (req,res) => {
+  try {
+    const prodId = req.params.id
+    const result = await req.context.models.products.findAll({
+      where : {prod_id : parseInt(prodId)}
+    }) 
+    return res.send(result)
+  } catch (error) {
+    return res.sendStatus(404).send('No Data Found')
+  }
+}
 
 export default {
   findAllRows,
   createRows,
   updateProduct,
-  createProductImage
+  createProductImage,
+  findProdById
 };

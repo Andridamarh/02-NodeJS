@@ -34,9 +34,9 @@ const initModels = (sequelize) => {
   const products = _products(sequelize, DataTypes);
   const users = _users(sequelize, DataTypes);
 
-  carts.belongsToMany(products, { as: 'lite_prod_id_products', through: line_items, foreignKey: "lite_cart_id", otherKey: "lite_prod_id" });
-  products.belongsToMany(carts, { as: 'lite_cart_id_carts', through: line_items, foreignKey: "lite_prod_id", otherKey: "lite_cart_id" });
-  line_items.belongsTo(carts, { as: "lite_cart", foreignKey: "lite_cart_id"});
+  carts.belongsToMany(products, {through: line_items, foreignKey: "lite_cart_id", otherKey: "lite_prod_id" });
+  products.belongsToMany(carts, {through: line_items, foreignKey: "lite_prod_id", otherKey: "lite_cart_id" });
+  line_items.belongsTo(carts, {foreignKey: "lite_cart_id"});
   carts.hasMany(line_items, { as: "line_items", foreignKey: "lite_cart_id"});
   products.belongsTo(category, {foreignKey: "prod_cate_id"});
   category.hasMany(products, {foreignKey: "prod_cate_id"});

@@ -4,6 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     order_name: {
       type: DataTypes.STRING(25),
       allowNull: false,
+      defaultValue: Sequelize.Sequelize.fn('ord_id'),
       primaryKey: true
     },
     order_createdon: {

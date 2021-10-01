@@ -8,6 +8,7 @@ import helmet from "helmet";
 // for access models to db
 import models,{sequelize} from "./models/IndexModel";
 import routes from './routes/IndexRoute'
+import IndexRoute from "./routes/IndexRoute";
 
 // declare port
 const port = process.env.PORT || 1337;
@@ -37,6 +38,8 @@ app.use(process.env.URL_DOMAIN, (req, res) => {
 // call routes
 app.use(process.env.URL_API+"/category",routes.CategoryRoute)
 app.use(process.env.URL_API+"/products",routes.ProductsRoute)
+app.use(process.env.URL_API+"/carts",routes.CartRoute)
+app.use(process.env.URL_API+"/orders", IndexRoute.OrderRoute)
 
 // set to false agar tidak di drop tables yang ada di database
 const dropDatabaseSync = false;

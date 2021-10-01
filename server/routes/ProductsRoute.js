@@ -6,6 +6,7 @@ const router = Router();
 
 router.get("/",IndexController.ProductsController.findAllRows);
 router.get("/images/:filename",UpDownloadHelper.showProductImage);
+router.get("/:id",IndexController.ProductsController.findProdById)
 
 router.post("/",IndexController.ProductsController.createRows);
 router.post("/multipart",IndexController.ProductsController.createProductImage,
